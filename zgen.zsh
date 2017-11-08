@@ -92,13 +92,13 @@ fi
     local branch="${2:-master}"
 
     if [[ -e "${repo}/.git" ]]; then
-        -zgputs "${ZGEN_DIR}/local/$(basename ${repo})-${branch}"
+        -zgputs "${ZGEN_DIR}/local/${repo:t}-${branch}"
     else
         # Repo directory will be location/reponame
-        local reponame="$(basename ${repo})"
+        local reponame="${repo:t}"
         # Need to encode incase it is a full url with characters that don't
         # work well in a filename.
-        local location="$(-zgen-encode-url $(dirname ${repo}))"
+        local location="$(-zgen-encode-url ${repo:h})"
         repo="${location}/${reponame}"
         -zgputs "${ZGEN_DIR}/${repo}-${branch}"
     fi
@@ -153,7 +153,7 @@ zgen-clone() {
         ZGEN_LOADED+=("${file}")
         source "${file}"
 
-        completion_path="$(dirname ${file})"
+        completion_path="${file:h}"
 
         -zgen-add-to-fpath "${completion_path}"
     fi
