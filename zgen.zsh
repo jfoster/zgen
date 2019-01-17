@@ -52,6 +52,10 @@ if [[ -z "${ZGEN_PREZTO_LOAD_DEFAULT}" ]]; then
     ZGEN_PREZTO_LOAD_DEFAULT=1
 fi
 
+if [[ -z "${ZGEN_USE_OH_MY_ZSH}" ]]; then
+    ZGEN_USE_OH_MY_ZSH=0
+fi
+
 if [[ -z "${ZGEN_OH_MY_ZSH_REPO}" ]]; then
     ZGEN_OH_MY_ZSH_REPO=robbyrussell
 fi
@@ -322,10 +326,10 @@ zgen-apply() {
 }
 
 -zgen-get-zsh(){
-    if [[ ${ZGEN_USE_PREZTO} == 1 ]]; then
-        -zgputs "$(-zgen-get-clone-dir "$ZGEN_PREZTO_REPO" "$ZGEN_PREZTO_BRANCH")"
-    else
+    if [[ ${ZGEN_USE_OH_MY_ZSH} == 1 ]]; then
         -zgputs "$(-zgen-get-clone-dir "$ZGEN_OH_MY_ZSH_REPO" "$ZGEN_OH_MY_ZSH_BRANCH")"
+    elif [[ ${ZGEN_USE_PREZTO} == 1 ]]; then
+        -zgputs "$(-zgen-get-clone-dir "$ZGEN_PREZTO_REPO" "$ZGEN_PREZTO_BRANCH")"
     fi
 }
 
@@ -435,7 +439,8 @@ zgen-selfupdate() {
 zgen-oh-my-zsh() {
     local repo="$ZGEN_OH_MY_ZSH_REPO"
     local file="${1:-oh-my-zsh.sh}"
-
+    
+    ZGEN_USE_OH_MY_ZSH=1
     zgen-load "${repo}" "${file}"
 }
 
