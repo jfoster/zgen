@@ -326,11 +326,7 @@ zgen-apply() {
 }
 
 -zgen-get-zsh(){
-    if [[ ${ZGEN_USE_OH_MY_ZSH} == 1 ]]; then
-        -zgputs "$(-zgen-get-clone-dir "$ZGEN_OH_MY_ZSH_REPO" "$ZGEN_OH_MY_ZSH_BRANCH")"
-    elif [[ ${ZGEN_USE_PREZTO} == 1 ]]; then
-        -zgputs "$(-zgen-get-clone-dir "$ZGEN_PREZTO_REPO" "$ZGEN_PREZTO_BRANCH")"
-    fi
+    -zgputs "$(-zgen-get-clone-dir "$ZGEN_OH_MY_ZSH_REPO" "$ZGEN_OH_MY_ZSH_BRANCH")"
 }
 
 zgen-load() {
